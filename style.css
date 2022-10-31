@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    letter-spacing: 5px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#game {
+    display: grid;
+    grid-template-columns: repeat(5, 160px);
+    grid-template-rows: repeat(5, 160px);
+    gap: 10px;
+}
+
+.card {
+    box-shadow: 0 3px 10px rgba(200, 200, 200, 0.9);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-card {
+    width: 100%;
+    
+}

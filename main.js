@@ -1,5 +1,6 @@
 const apiZooAnimal = 'https://zoo-animal-api.herokuapp.com/animals/rand/';
-
+const containerHtml = document.querySelector('.container');
+const gameHtml = document.querySelector('#game');
 
 async function loadAnimals(){
     let arrayZoo = [];
@@ -41,8 +42,22 @@ function shuffle(array) {
 async function start(){
     let arr = await loadAnimals();
     const duplicateArray = ([...arr, ...arr]);
-    let res= shuffle(duplicateArray);
+    let res = shuffle(duplicateArray);
+    displayHtml(res);
     console.log(res);
+}
+
+function displayHtml(array){
+    array.forEach(element => {
+     const div = document.createElement('div');
+     div.setAttribute('class', 'card');
+     const img = document.createElement('img');
+    //  let source = element.image_link;
+    img.setAttribute('class', 'img-card')
+     img.src = element.image_link;
+     div.append(img);
+     gameHtml.append(div);
+    });
 }
 
 start();
