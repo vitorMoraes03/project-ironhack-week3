@@ -49,15 +49,29 @@ async function start(){
 
 function displayHtml(array){
     array.forEach(element => {
-     const div = document.createElement('div');
-     div.setAttribute('class', 'card');
-     const img = document.createElement('img');
-    //  let source = element.image_link;
-    img.setAttribute('class', 'img-card')
-     img.src = element.image_link;
-     div.append(img);
-     gameHtml.append(div);
+        new Card(element);
     });
+}
+
+class Card {
+    constructor(element){
+        this.element = element;
+        this.div = document.createElement('div');
+        this.divFront = document.createElement('div');
+        this.divBack = document.createElement('div');
+        this.img = document.createElement('img');
+
+        this.div.setAttribute('class', 'card');
+        this.divFront.setAttribute('class', 'front');
+        this.divBack.setAttribute('class', 'black');
+        this.img.setAttribute('class', 'img-card');
+        this.img.src = element.image_link;
+
+        gameHtml.append(this.div);
+        this.div.append(this.divFront);
+        this.div.append(this.divBack);
+        this.divBack.append(this.img);
+    }
 }
 
 start();
