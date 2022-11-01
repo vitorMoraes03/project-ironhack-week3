@@ -63,9 +63,13 @@ class Card {
 
         this.div.setAttribute('class', 'card');
         this.divFront.setAttribute('class', 'front');
-        this.divBack.setAttribute('class', 'black');
+        this.divBack.setAttribute('class', 'back rotated');
         this.img.setAttribute('class', 'img-card');
         this.img.src = element.image_link;
+
+        this.div.addEventListener('click', () => {
+            this.divBack.classList.toggle('rotated');
+        })
 
         gameHtml.append(this.div);
         this.div.append(this.divFront);
