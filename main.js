@@ -2,10 +2,16 @@ const apiZooAnimal = 'https://zoo-animal-api.herokuapp.com/animals/rand/';
 const containerHtml = document.querySelector('.container');
 const gameHtml = document.querySelector('#game');
 
+let firstCard;
+let currentCard;
+let firstCardHtml;
+let currentCardHtml;
+
+
 async function loadAnimals(){
     let arrayZoo = [];
 
-    for (let i = 0; i < 10; i++) {  
+    for (let i = 0; i < 8; i++) {  
         const res = await fetch(apiZooAnimal);
         const data = await res.json();
         let state = true;
@@ -27,7 +33,7 @@ async function loadAnimals(){
 
 function shuffle(array) {
     let currentIndex = array.length;
-    console.log(currentIndex);
+    // console.log(currentIndex);
   
     while (currentIndex != 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
@@ -68,14 +74,69 @@ class Card {
         this.img.src = element.image_link;
 
         this.div.addEventListener('click', () => {
+            if(!this.divBack.classList.contains('rotated')) return;
+            if(currentCard) return;
+            
             this.divBack.classList.toggle('rotated');
+
+            if(firstCard){
+
+            currentCard = this.element;
+            currentCardHtml = this.divBack;
+            console.log('oi');
+            console.log(firstCardHtml);
+            console.log(currentCardHtml);
+            if(currentCard.name === firstCard.name){
+                console.log('equal')
+                this.resetCard();
+            } else {
+                setTimeout(() => {
+                    this.toggleCards();
+                    this.resetCard();
+                }, 1000);
+            } 
+            
+            
+            
+            }
+
+            else {
+                firstCard = this.element;
+                firstCardHtml = this.divBack;
+                console.log(firstCardHtml);
+                console.log(currentCardHtml);
+            }
+
+
+   
         })
 
         gameHtml.append(this.div);
         this.div.append(this.divFront);
         this.div.append(this.divBack);
         this.divBack.append(this.img);
+        
     }
+
+
+
+    toggleCards(){
+        firstCardHtml.classList.toggle('rotated');
+        currentCardHtml.classList.toggle('rotated');
+        
+    }
+
+    resetCard(){
+        firstCard = undefined;
+        currentCard = undefined;
+        firstCardHtml = undefined;
+        currentCardHtml = undefined;
+        console.log('oi');
+    }
+
+
+
+
 }
 
 start();
