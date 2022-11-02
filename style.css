@@ -4,6 +4,21 @@
     margin: 0;
 }
 
+html, body {
+    height: 100%;
+}
+
+.background {
+    background-image: url(./img/tropical-rainforest-jungle-background.jpg);
+    background-size: contain;
+    background-position: center center;
+    opacity: 0.9;
+    /* CANT GET CARDS */
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+}
+
 .container {
     letter-spacing: 5px;
     margin: 0 auto;
@@ -20,8 +35,8 @@
 
 #game {
     display: grid;
-    grid-template-columns: repeat(5, 160px);
-    grid-template-rows: repeat(5, 160px);
+    grid-template-columns: repeat(6, 130px);
+    grid-template-rows: repeat(3, 130px);
     gap: 10px;
 }
 
@@ -54,8 +69,8 @@
 }
 
 .front {
-    background-color: green;
-    background-image: url("./img/forest\ img.jpg");
+    background-color:rgb(14, 33, 2);
+    /* background-image: url("./img/forest\ img.jpg"); */
     background-position: center;
     background-repeat: no-repeat;
 }

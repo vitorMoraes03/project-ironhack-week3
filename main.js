@@ -6,16 +6,26 @@ let firstCard;
 let currentCard;
 let firstCardHtml;
 let currentCardHtml;
+let countPlays = 0;
+let arrayRender;
+let duplicateArray;
 
+async function start(){
+    let arr = await loadAnimals();
+    duplicateArray = ([...arr, ...arr]);
+    let res = shuffle(duplicateArray);
+    displayHtml(res);
+    // console.log(res);
+}
 
 async function loadAnimals(){
     let arrayZoo = [];
 
-    for (let i = 0; i < 8; i++) {  
+    for (let i = 0; i < 9; i++) {  
         const res = await fetch(apiZooAnimal);
         const data = await res.json();
+        // Check for repetition
         let state = true;
-
         if(arrayZoo.length != 0){
             arrayZoo.forEach(element => {
                 if(element.name === data.name){
@@ -24,7 +34,6 @@ async function loadAnimals(){
                 }; 
             })
         }
-
         if(state === true){arrayZoo.push(data)};       
     }   
 
@@ -45,18 +54,16 @@ function shuffle(array) {
     return array;
 }
 
-async function start(){
-    let arr = await loadAnimals();
-    const duplicateArray = ([...arr, ...arr]);
-    let res = shuffle(duplicateArray);
-    displayHtml(res);
-    console.log(res);
-}
-
 function displayHtml(array){
-    array.forEach(element => {
+    arrayRender = array.forEach(element => {
         new Card(element);
     });
+}
+
+function resetSameCards(){
+    arrayRender = [];
+    let res = shuffle(duplicateArray);
+    displayHtml(res);
 }
 
 class Card {
@@ -66,61 +73,57 @@ class Card {
         this.divFront = document.createElement('div');
         this.divBack = document.createElement('div');
         this.img = document.createElement('img');
-
         this.div.setAttribute('class', 'card');
         this.divFront.setAttribute('class', 'front');
         this.divBack.setAttribute('class', 'back rotated');
         this.img.setAttribute('class', 'img-card');
         this.img.src = element.image_link;
-
-        this.div.addEventListener('click', () => {
-            if(!this.divBack.classList.contains('rotated')) return;
-            if(currentCard) return;
-            
-            this.divBack.classList.toggle('rotated');
-
-            if(firstCard){
-
-            currentCard = this.element;
-            currentCardHtml = this.divBack;
-            console.log('oi');
-            console.log(firstCardHtml);
-            console.log(currentCardHtml);
-            if(currentCard.name === firstCard.name){
-                console.log('equal')
-                this.resetCard();
-            } else {
-                setTimeout(() => {
-                    this.toggleCards();
-                    this.resetCard();
-                }, 1000);
-            } 
-            
-            
-            
-            }
-
-            else {
-                firstCard = this.element;
-                firstCardHtml = this.divBack;
-                console.log(firstCardHtml);
-                console.log(currentCardHtml);
-            }
-
-
-   
-        })
-
         gameHtml.append(this.div);
         this.div.append(this.divFront);
         this.div.append(this.divBack);
         this.divBack.append(this.img);
-        
+
+        this.div.addEventListener('click', () => {
+            if(!this.divBack.classList.contains('rotated')) return;
+            if(currentCard) return;
+            this.divBack.classList.toggle('rotated');
+            
+
+            if(firstCard){
+            
+            currentCard = this.element;
+            currentCardHtml = this.divBack;
+            
+                if(currentCard.name === firstCard.name){
+                    this.resetCard();
+              } else {
+                   countPlays++;
+                   setTimeout(() => {
+                   this.toggleCards();
+                   this.resetCard();
+                }, 1000);
+              } 
+            }
+            else{
+                firstCard = this.element;
+                firstCardHtml = this.divBack;
+            }  
+
+            console.log(countPlays);
+
+            if(countPlays > 3) {
+                // window.location.reload();
+                this.resetCard();
+                resetSameCards();
+                
+                
+            }; 
+        })
+
     }
 
-
-
     toggleCards(){
+        if(!firstCardHtml & !currentCardHtml) return;
         firstCardHtml.classList.toggle('rotated');
         currentCardHtml.classList.toggle('rotated');
         
@@ -131,7 +134,6 @@ class Card {
         currentCard = undefined;
         firstCardHtml = undefined;
         currentCardHtml = undefined;
-        console.log('oi');
     }
 
 
