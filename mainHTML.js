@@ -7,6 +7,7 @@ let firstPick = [];
 let secondPick = [];
 let count = 0;
 let countForWin = 0;
+let pauseState = true;
 
 export async function start(){
     await createArray();
@@ -43,16 +44,21 @@ class Card {
         gameHtml.append(this.div);
         this.div.append(this.divFront);
         this.div.append(this.divBack);
-        this.divBack.append(this.img);
-       
+        this.divBack.append(this.img);  
 
         this.div.addEventListener('click', () => {
-            if(secondPick.length) return;
+            if(pauseState === false) return;
+            if(this.divBack.classList.contains('clicked')){
+                console.log('iu');
+                return
+            };
+            this.divBack.classList.add('clicked');
             this.rotateCard();
             this.checkPicks();
             this.comparision();
         })
 }
+
     rotateCard(){
         if(!this.divBack.classList.contains('rotated')) return;
         this.divBack.classList.toggle('rotated');
@@ -70,8 +76,10 @@ class Card {
     }
 
     comparision(){
+    
         if(!secondPick.length) return
         if(firstPick[0].id === secondPick[0].id){
+            pauseState = false;
             countForWin++;
             setTimeout(() => {
                 this.checkForWin();
@@ -79,6 +87,7 @@ class Card {
             }, 500);
         }
         else {
+            pauseState = false;
             count++;
             setTimeout(() => {
                firstPick[1].classList.toggle('rotated');
@@ -87,16 +96,18 @@ class Card {
                this.clearPicks();
              }, 1000);
         }
-        
     }
 
     clearPicks(){
+        firstPick[1].classList.remove('clicked');
+        secondPick[1].classList.remove('clicked');
         firstPick = [];
         secondPick = [];
+        pauseState = true;
     }
     
     checkGameOver(){
-        if(count > 30){
+        if(count > 12){
             alert('game over');
             this.restartSameGame();
         }
@@ -126,11 +137,6 @@ class Card {
         start();
         count = 0;
     }
-
-
-   
-
 }
-
 
 start();
