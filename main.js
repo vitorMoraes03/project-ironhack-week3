@@ -6,7 +6,7 @@ let firstCard;
 let currentCard;
 let firstCardHtml;
 let currentCardHtml;
-let countPlays = 0;
+// let countPlays = 0;
 let arrayRender;
 let duplicateArray;
 

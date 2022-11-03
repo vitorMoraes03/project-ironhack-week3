@@ -5,7 +5,7 @@ const apiZooAnimal = 'https://zoo-animal-api.herokuapp.com/animals/rand/';
 async function loadAnimalsApi(){
     let arrayZoo = [];
 
-    for (let i = 0; i < 9; i++) {  
+    for (let i = 0; i < 3; i++) {  
         const res = await fetch(apiZooAnimal);
         const data = await res.json();
         // Check for repetition
@@ -31,7 +31,7 @@ export async function pushToArray(){
     return arrayAnimals;
 }
 
-function shuffle(array) {
+export function shuffle(array) {
     let currentIndex = array.length, randomIndex;
   
     while (currentIndex != 0) {
@@ -44,9 +44,7 @@ function shuffle(array) {
     return array;
 }
 
-function clearArray(){
-    arrayAnimals.length = 0;
-}
+
 
 
 
