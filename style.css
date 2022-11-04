@@ -88,6 +88,14 @@ html, body {
     transform: rotateY(180deg);
 }
 
+.count-life {
+    position: absolute;
+    font-size: 3rem;
+    color: rgb(212, 202, 10);
+    top: 320px;
+    left: 50px;
+}
+
 
 
 

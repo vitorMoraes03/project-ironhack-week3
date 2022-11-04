@@ -2,6 +2,7 @@ import { pushToArray } from "./array.js";
 import { shuffle } from "./array.js";
 
 const gameHtml = document.querySelector('#game');
+const countLife = document.querySelector('.count-life');
 let arrayZoo;
 let firstPick = [];
 let secondPick = [];
@@ -12,6 +13,7 @@ let pauseState = true;
 export async function start(){
     await createArray();
     displayHtml(arrayZoo);
+    showCount();
 }
 
 async function createArray(){
@@ -26,6 +28,11 @@ function displayHtml(array){
 
 function clearArray(){
     arrayZoo.length = 0;
+}
+
+function showCount(){
+    let res = 12 - `${count}`
+    countLife.innerHTML = res;
 }
 
 class Card {
@@ -76,25 +83,30 @@ class Card {
         }
     }
 
+
     comparision(){
     
         if(!secondPick.length) return
         if(firstPick[0].id === secondPick[0].id){
             pauseState = false;
             countForWin++;
+            
             setTimeout(() => {
                 this.checkForWin();
                 this.clearPicks();
+                showCount();
             }, 500);
         }
         else {
             pauseState = false;
             count++;
+            showCount();
             setTimeout(() => {
                firstPick[1].classList.toggle('rotated');
                secondPick[1].classList.toggle('rotated');
                this.checkGameOver();
                this.clearPicks();
+               showCount();
              }, 1000);
         }
     }
@@ -108,7 +120,7 @@ class Card {
     }
     
     checkGameOver(){
-        if(count > 12){
+        if(count > 11){
             alert('game over');
             
             this.restartSameGame();
