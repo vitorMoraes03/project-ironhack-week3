@@ -5,7 +5,7 @@ const apiZooAnimal = 'https://zoo-animal-api.herokuapp.com/animals/rand/';
 async function loadAnimalsApi(){
     let arrayZoo = [];
 
-    for (let i = 0; i < 3; i++) {  
+    for (let i = 0; i < 9; i++) {  
         const res = await fetch(apiZooAnimal);
         const data = await res.json();
         // Check for repetition

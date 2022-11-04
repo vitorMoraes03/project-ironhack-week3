@@ -44,7 +44,8 @@ class Card {
         gameHtml.append(this.div);
         this.div.append(this.divFront);
         this.div.append(this.divBack);
-        this.divBack.append(this.img);  
+        this.divBack.append(this.img); 
+        
 
         this.div.addEventListener('click', () => {
             if(pauseState === false) return;
@@ -109,15 +110,19 @@ class Card {
     checkGameOver(){
         if(count > 12){
             alert('game over');
+            
             this.restartSameGame();
+            
         }
     } 
 
     checkForWin(){
-      if(countForWin === 3){
+      if(countForWin === 9){
             countForWin = 0;
             alert('game win');
+            
             this.restartNewGame();
+
       }
     }
 
@@ -126,6 +131,7 @@ class Card {
         let arrSame = shuffle(arrayZoo);
         setInterval(() => {
             displayHtml(arrSame);
+            clearArray();
         }, 3000);
         count = 0;
         countForWin = 0;

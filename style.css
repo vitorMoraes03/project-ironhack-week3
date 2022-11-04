@@ -1,3 +1,16 @@
+h1 {
+    text-align: center;
+    font-family: 'Amazonic';
+    font-size: 8rem;
+    color: rgb(212, 202, 10);
+    padding-bottom: 2.4rem;
+}
+
+@font-face {
+    font-family: 'Amazonic';
+    src: url(./fonts/AmazonicPersonalUseBold-eZKGn.ttf);
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -13,16 +26,14 @@ html, body {
     background-size: contain;
     background-position: center center;
     opacity: 0.9;
-    /* CANT GET CARDS */
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
 }
 
 .container {
     letter-spacing: 5px;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
     padding: 20px;
 }
 
@@ -35,13 +46,14 @@ html, body {
 
 #game {
     display: grid;
-    grid-template-columns: repeat(6, 130px);
-    grid-template-rows: repeat(3, 130px);
-    gap: 10px;
+    grid-template-columns: repeat(6, 120px);
+    grid-template-rows: repeat(3, 110px);
+    gap: 1.2rem;
+    justify-content: center;
 }
 
 .card {
-    box-shadow: 0 3px 10px rgba(200, 200, 200, 0.9);
+    box-shadow: 0 3px 2px rgb(212, 202, 10);
     border-radius: 10px;
     position: relative;
     overflow: hidden;
@@ -50,11 +62,9 @@ html, body {
 
 .img-card {
     width: 100%;
+    height: 100%;
 }
 
-/* .hidden {
-    display: none;
-} */
 
 .front, .back {
     width: 100%;
@@ -69,8 +79,7 @@ html, body {
 }
 
 .front {
-    background-color:rgb(14, 33, 2);
-    /* background-image: url("./img/forest\ img.jpg"); */
+    background-color:rgb(216, 251, 195);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -78,3 +87,7 @@ html, body {
 .rotated {
     transform: rotateY(180deg);
 }
+
+
+
+
